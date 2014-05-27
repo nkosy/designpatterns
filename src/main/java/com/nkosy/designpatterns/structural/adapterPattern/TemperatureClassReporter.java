@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package com.nkosy.designpatterns.structural.AdapterPattern;
+package com.nkosy.designpatterns.structural.adapterPattern;
 
 /**
  *

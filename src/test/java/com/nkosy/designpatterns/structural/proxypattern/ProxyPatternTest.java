@@ -4,15 +4,12 @@
  * and open the template in the editor.
  */
 
-package com.nkosy.designpatterns.structural.adapterpattern.test;
+package com.nkosy.designpatterns.structural.proxypattern;
 
 import com.nkosy.designpatterns.Config.AppConfig;
-import com.nkosy.designpatterns.structural.adapterPattern.CelciusReporter;
-import com.nkosy.designpatterns.structural.adapterPattern.TemperatureClassReporter;
-import com.nkosy.designpatterns.structural.adapterPattern.TemperatureInfo;
-import com.nkosy.designpatterns.structural.adapterPattern.TemperatureObjectReporter;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.testng.Assert;
 import static org.testng.Assert.*;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
@@ -24,30 +21,21 @@ import org.testng.annotations.Test;
  *
  * @author nkosy
  */
-public class AdapterPatternTest {
-    private TemperatureObjectReporter obj;
-    private CelciusReporter obj2;
-    private TemperatureInfo tempInfo;
-            
-    public AdapterPatternTest() {
+public class ProxyPatternTest {
+    
+    public ProxyPatternTest() {
     }
 
     // TODO add test methods here.
     // The methods must be annotated with annotation @Test. For example:
     //
     @Test
-    public void classAdapter() {
-        tempInfo = new TemperatureClassReporter();
-        tempInfo.setTemperatureInC(0.0);
-        assertEquals(0.0,tempInfo.getTemperatureInC());
-    }
-    
-    @Test
-    public void objectAdapter(){
-        tempInfo = new TemperatureObjectReporter();
-        tempInfo.setTemperatureInF(85);
-        assertEquals(85.0, tempInfo.getTemperatureInF());
-        assertEquals(29.444444444444443, tempInfo.getTemperatureInC());
+    public void sayHello() {
+        Proxy proxy = new Proxy();
+        FastThing fastThing = new FastThing();
+        fastThing.saysHello();
+        proxy.sayHello();
+        Assert.assertNotNull(proxy);
     }
 
     @BeforeClass
@@ -61,8 +49,6 @@ public class AdapterPatternTest {
     @BeforeMethod
     public void setUpMethod() throws Exception {
         ApplicationContext ctx = new AnnotationConfigApplicationContext(AppConfig.class);
-        obj = (TemperatureObjectReporter) ctx.getBean("tempObjectReporter");
-        obj2 = (CelciusReporter) ctx.getBean("classReporter");
     }
 
     @AfterMethod

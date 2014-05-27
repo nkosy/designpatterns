@@ -1,4 +1,4 @@
-package com.nkosy.designpatterns.structural.AdapterPattern;
+package com.nkosy.designpatterns.structural.adapterPattern;
 
 /**
  *

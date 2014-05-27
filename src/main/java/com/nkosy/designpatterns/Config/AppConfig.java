@@ -10,8 +10,8 @@ import com.nkosy.designpatterns.creational.builderpattern.Meal;
 import com.nkosy.designpatterns.creational.factorymethod.AnimalFactory;
 import com.nkosy.designpatterns.creational.prototypepattern.Person;
 import com.nkosy.designpatterns.creational.singleton.SingletonExample;
-import com.nkosy.designpatterns.structural.AdapterPattern.TemperatureClassReporter;
-import com.nkosy.designpatterns.structural.AdapterPattern.TemperatureObjectReporter;
+import com.nkosy.designpatterns.structural.adapterPattern.TemperatureClassReporter;
+import com.nkosy.designpatterns.structural.adapterPattern.TemperatureObjectReporter;
 import com.nkosy.designpatterns.structural.compositepattern.Composite;
 import org.springframework.context.annotation.Bean;
 
