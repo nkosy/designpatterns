@@ -1,9 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.nkosy.designpatterns.creational.builderpattern;
+
+import java.util.Objects;
 
 /**
  *
@@ -15,20 +12,41 @@ public class Meal {
     private String mainCourse;
     private String side;
 
+    public Meal() {
+    }
+
+    public Meal(Builder builder) {
+        drink = builder.drink;
+        mainCourse = builder.mainCourse;
+        side = builder.side;
+    }
+    
+    public static class Builder{
+        private String drink;
+        private String mainCourse;
+        private String side;
+        
+        public Builder(String value){
+            drink = value;
+        }
+        
+        public Builder mainCourse(String value){
+            mainCourse = value;
+            return this;
+        }
+        
+        public Builder side(String value){
+            side = value;
+            return this;
+        }
+        
+        public Meal build(){
+            return new Meal(this);
+        }
+    }
+
     public String getDrink() {
         return drink;
-    }
-
-    public void setDrink(String drink) {
-        this.drink = drink;
-    }
-
-    public void setMainCourse(String mainCourse) {
-        this.mainCourse = mainCourse;
-    }
-
-    public void setSide(String side) {
-        this.side = side;
     }
 
     public String getMainCourse() {
@@ -38,9 +56,31 @@ public class Meal {
     public String getSide() {
         return side;
     }
-
+    
     public String toString()
     {
         return "drink:" + drink + ",main course:" + mainCourse + ", side" + side;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 89 * hash + Objects.hashCode(this.drink);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Meal other = (Meal) obj;
+        if (!Objects.equals(this.drink, other.drink)) {
+            return false;
+        }
+        return true;
     }
 }

@@ -9,28 +9,39 @@ public class MealDirector {
     private MealBuilder mealBuilder = null;
     private static MealDirector mealDirector = null;
     
-    public static MealDirector getInstance(){
-        if(mealDirector == null)
-            return new MealDirector();
-        else
-            return mealDirector;
-    }
-    
-    public MealDirector(MealBuilder mealBuilder){
-        this.mealBuilder = mealBuilder;
+    public MealDirector(Builder builder){
+        this.mealBuilder = builder.mealBuilder;
     }
 
     public MealDirector() {
+      
     }
     
+    public static class Builder{
+        private MealBuilder mealBuilder = null;
+        
+        public Builder(MealBuilder mealBuilder){
+            this.mealBuilder = mealBuilder; 
+        }
+        
+        public MealDirector build(){
+            return new MealDirector(this);
+        }
+    }
     
     public void constructMeal(){
-        mealBuilder.buildDrink();
-        mealBuilder.buildMainCourse();
-        mealBuilder.buildSide();
+        mealBuilder.buildMeal();
+        
     }
     
     public Meal getMeal(){
         return mealBuilder.getMeal();
+    }
+    
+     public static MealDirector getInstance(){
+        if(mealDirector == null)
+            return new MealDirector();
+        else
+            return mealDirector;
     }
 }

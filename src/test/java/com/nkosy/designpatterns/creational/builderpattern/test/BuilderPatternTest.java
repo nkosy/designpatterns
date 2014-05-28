@@ -37,11 +37,11 @@ public class BuilderPatternTest {
     //
     @Test
     public void addMeal() {
-        MealBuilder mealBuilder = new ItalianMealBuilder();
-        MealDirector mealDirector = new MealDirector(mealBuilder);
+        MealBuilder mealBuilder = new ItalianMealBuilder.Builder(obj).build();
+        MealDirector mealDirector = new MealDirector.Builder(mealBuilder).build();
         mealDirector.constructMeal();
         Meal meal1= mealDirector.getMeal();
-        //Assert.assertNotNull(meal1.toString());
+        Assert.assertNotNull(meal1.toString());
         
 //        mealBuilder = JapaneseMealBuilder.getInstance();
 //        mealDirector = new MealDirector(mealBuilder);
