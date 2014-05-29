@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package com.nkosy.designpatterns.behavioral;
+package com.nkosy.designpatterns.behavioral.chainofresponsibilypattern;
 
 /**
  *
@@ -17,6 +17,5 @@ public abstract class PlanetHandler {
         this.successor = successor;
     }
     
-    public abstract void handlerequest(PlanetEnum request);
-    
+    public abstract void handlerequest(PlanetEnum request); 
 }

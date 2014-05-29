@@ -4,14 +4,13 @@
  * and open the template in the editor.
  */
 
-package com.nkosy.designpatterns.creational.builderpattern.test;
+package com.nkosy.designpatterns.behavioural.chainofresponsibilitypattern.test;
 
 import com.nkosy.designpatterns.Config.AppConfig;
-import com.nkosy.designpatterns.creational.builderpattern.ItalianMealBuilder;
-import com.nkosy.designpatterns.creational.builderpattern.JapaneseMealBuilder;
-import com.nkosy.designpatterns.creational.builderpattern.Meal;
-import com.nkosy.designpatterns.creational.builderpattern.MealBuilder;
-import com.nkosy.designpatterns.creational.builderpattern.MealDirector;
+import com.nkosy.designpatterns.behavioral.chainofresponsibilypattern.MercuryHandler;
+import com.nkosy.designpatterns.behavioral.chainofresponsibilypattern.PlanetEnum;
+import com.nkosy.designpatterns.behavioral.chainofresponsibilypattern.PlanetHandler;
+import com.nkosy.designpatterns.behavioral.chainofresponsibilypattern.VenusHandler;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.testng.Assert;
@@ -26,29 +25,30 @@ import org.testng.annotations.Test;
  *
  * @author nkosy
  */
-public class BuilderPatternTest {
-    private Meal obj;
+public class chainofresponsibilitypattern {
     
-    public BuilderPatternTest() {
+    public chainofresponsibilitypattern() {
     }
 
     // TODO add test methods here.
     // The methods must be annotated with annotation @Test. For example:
     //
     @Test
-    public void addMeal() {
-        MealBuilder mealBuilder = new ItalianMealBuilder.Builder(obj).build();
-        MealDirector mealDirector = new MealDirector.Builder(mealBuilder).build();
-        mealDirector.constructMeal();
-        Meal meal1= mealDirector.getMeal();
-        Assert.assertNotNull(meal1.toString());
+    public void testChain() {
+        PlanetHandler chain = setUpChain();
+        chain.handlerequest(PlanetEnum.VENUS);
+        chain.handlerequest(PlanetEnum.MERCURY);
         
-//        mealBuilder = JapaneseMealBuilder.getInstance();
-//        mealDirector = new MealDirector(mealBuilder);
-//        mealDirector.constructMeal();
-//        Meal meal2 = mealDirector.getMeal();
-//        Assert.assertNotNull(meal2);
+        Assert.assertNotNull(chain);
     }
+    
+    public static PlanetHandler setUpChain(){
+            PlanetHandler mercuryHandler = new MercuryHandler.Builder().build();
+            PlanetHandler venusHandler = new VenusHandler.Builder().build();
+            
+            mercuryHandler.setSuccessor(venusHandler);
+            return mercuryHandler;
+        }
 
     @BeforeClass
     public static void setUpClass() throws Exception {
@@ -61,7 +61,6 @@ public class BuilderPatternTest {
     @BeforeMethod
     public void setUpMethod() throws Exception {
         ApplicationContext ctx = new AnnotationConfigApplicationContext(AppConfig.class);
-        obj = (Meal) ctx.getBean("builderPattern");
     }
 
     @AfterMethod

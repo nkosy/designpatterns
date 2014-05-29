@@ -11,8 +11,6 @@ package com.nkosy.designpatterns.creational.builderpattern;
  * @author nkosy
  */
 public interface MealBuilder {
-    public void buildDrink();
-    public void buildMainCourse();
-    public void buildSide();
+    public void buildMeal();
     public Meal getMeal();
 }

@@ -1,47 +1,55 @@
 package com.nkosy.designpatterns.creational.builderpattern;
-
 /**
  *
  * @author nkosy
  */
 public class ItalianMealBuilder implements MealBuilder {
-    private Meal meal;
+    private Meal meal; 
     
     private static ItalianMealBuilder italianMealBuilder = null;
     
-    public static ItalianMealBuilder getInstance(){
+    private static ItalianMealBuilder getInstance(){
         if (italianMealBuilder == null)
             return  new ItalianMealBuilder();
         else
             return italianMealBuilder;
     }
 
-    public ItalianMealBuilder(Meal meal) {
+    private ItalianMealBuilder(Meal meal) {
         meal = new Meal();
     }
 
-    public ItalianMealBuilder() {
+    private ItalianMealBuilder() {
       
     }
-    
 
-    @Override
-    public void buildDrink() {
-        meal.setDrink("red wine");
+    public ItalianMealBuilder(Builder builder) {
+        meal = builder.meal;
     }
 
     @Override
-    public void buildMainCourse() {
-       meal.setMainCourse("pizza");
-    }
-
-    @Override
-    public void buildSide() {
-      meal.setSide("bread");
+    public void buildMeal() {
+        meal = new Meal.Builder("red wine")
+                .mainCourse("pizza")
+                .side("chips")
+                .build();
     }
 
     @Override
     public Meal getMeal() {
         return meal;
+    }
+    
+    public static class Builder{
+        private Meal meal;
+        
+        public Builder(Meal value)
+        {
+           meal = value;
+        }
+        
+        public ItalianMealBuilder build(){
+            return new ItalianMealBuilder(this);
+        }
     }
 }

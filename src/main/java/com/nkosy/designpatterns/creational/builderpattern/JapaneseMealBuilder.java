@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package com.nkosy.designpatterns.creational.builderpattern;
 
 /**
@@ -14,34 +8,37 @@ public class JapaneseMealBuilder implements MealBuilder {
     
     private Meal meal;
     private static JapaneseMealBuilder jMeal = null;
-    
-    public static JapaneseMealBuilder getInstance(){
-        if(jMeal == null)
-            return new JapaneseMealBuilder();
-        else
-            return jMeal;
+
+    public JapaneseMealBuilder(Meal meal) {
+        this.meal = meal;
+    }
+
+    public JapaneseMealBuilder(Builder builder) {
+        this.meal = builder.meal;
     }
     
-
-    @Override
-    public void buildDrink() {
-        meal.setDrink("sake");
+    public static class Builder{
+        private Meal meal;
+        
+        public Builder(Meal meal){
+            this.meal = meal;
+        }
+        
+        public JapaneseMealBuilder build(){
+            return new JapaneseMealBuilder(this);
+        }   
     }
-
+    
     @Override
-    public void buildMainCourse() {
-       meal.setMainCourse("chicken teriyaki");
-    }
-
-    @Override
-    public void buildSide() {
-        meal.setSide("miso soup");
+    public void buildMeal() {
+        meal = new Meal.Builder("red wine")
+                .mainCourse("pizza")
+                .side("chips")
+                .build();
     }
 
     @Override
     public Meal getMeal() {
        return meal;
     }
-    
-    
 }
